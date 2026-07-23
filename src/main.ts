@@ -26,7 +26,53 @@ schedaView.appendChild(schedaContent);
 
 let editMode = false;
 
+type FocusSnapshot = {
+  selector: string;
+  selectionStart: number | null;
+  selectionEnd: number | null;
+};
+
+function captureFocusSnapshot(): FocusSnapshot | null {
+  const active = document.activeElement;
+  if (!(active instanceof HTMLInputElement)) return null;
+
+  const abilityKey = active.dataset.abilityKey;
+  if (abilityKey) {
+    return {
+      selector: `input.ability-input[data-ability-key="${abilityKey}"]`,
+      selectionStart: active.selectionStart,
+      selectionEnd: active.selectionEnd,
+    };
+  }
+
+  const combatKey = active.dataset.combatKey;
+  if (combatKey) {
+    return {
+      selector: `input.combat-input[data-combat-key="${combatKey}"]`,
+      selectionStart: active.selectionStart,
+      selectionEnd: active.selectionEnd,
+    };
+  }
+
+  return null;
+}
+
+function restoreFocusSnapshot(snapshot: FocusSnapshot | null): void {
+  if (!snapshot) return;
+
+  const input = document.querySelector<HTMLInputElement>(snapshot.selector);
+  if (!input) return;
+
+  input.focus({ preventScroll: true });
+  if (snapshot.selectionStart !== null && snapshot.selectionEnd !== null) {
+    input.setSelectionRange(snapshot.selectionStart, snapshot.selectionEnd);
+  }
+}
+
 function renderScheda(): void {
+  const scrollY = window.scrollY;
+  const focusSnapshot = captureFocusSnapshot();
+
   const effectiveCharacter = applyOverrides(character);
   schedaContent.innerHTML = '';
   [
@@ -39,6 +85,9 @@ function renderScheda(): void {
     renderSpellsPanel(effectiveCharacter),
     renderPatronPanel(effectiveCharacter),
   ].forEach((s) => schedaContent.appendChild(s));
+
+  window.scrollTo({ top: scrollY });
+  restoreFocusSnapshot(focusSnapshot);
 }
 
 renderScheda();
@@ -70,4 +119,3 @@ mountNav((view:string) => {
   const gauge = document.querySelector<HTMLElement>('.fathom-gauge');
   if (gauge) gauge.style.display = view === 'scheda' ? '' : 'none';
 });
-
