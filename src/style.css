@@ -149,6 +149,38 @@ body::before {
    ============================================================ */
 .header-card {
   margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.header-card-text {
+  flex: 1;
+  min-width: 0;
+}
+.header-portrait-wrap {
+  flex-shrink: 0;
+  width: 180px;
+  height: 180px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(87, 232, 209, 0.3);
+  box-shadow: 0 0 40px rgba(87, 232, 209, 0.15);
+}
+.header-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+@media (max-width: 640px) {
+  .header-card {
+    flex-direction: column-reverse;
+    gap: 20px;
+  }
+  .header-portrait-wrap {
+    width: 140px;
+    height: 140px;
+  }
 }
 .eyebrow {
   font-family: var(--font-mono);
@@ -591,6 +623,160 @@ body::before {
   }
   .char-name {
     font-size: 2.2rem;
+  }
+}
+
+/* ============================================================
+   NAVIGAZIONE PRINCIPALE
+   ============================================================ */
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: var(--gauge-width);
+  right: 0;
+  z-index: 20;
+  display: flex;
+  gap: 4px;
+  padding: 10px 16px;
+  background: rgba(3, 10, 13, 0.75);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(233, 226, 207, 0.08);
+}
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-parchment-dim);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.nav-link:hover {
+  color: var(--c-parchment);
+}
+.nav-link-active {
+  color: var(--c-glow);
+  border-color: rgba(87, 232, 209, 0.35);
+  background: rgba(87, 232, 209, 0.06);
+}
+
+/* Spazio extra in alto per non finire sotto la nav fissa */
+#app {
+  padding-top: 54px;
+}
+
+/* ============================================================
+   COMPENDIO
+   ============================================================ */
+.compendium-wrap {
+  padding: 40px 0 100px 0;
+}
+.compendium-intro {
+  margin-bottom: 40px;
+}
+.compendium-title {
+  font-size: 2.4rem;
+  color: var(--c-glow);
+  text-shadow: 0 0 24px rgba(87, 232, 209, 0.3);
+}
+.compendium-section {
+  margin-bottom: 44px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(233, 226, 207, 0.08);
+}
+.compendium-h2 {
+  font-size: 1.4rem;
+  margin-bottom: 14px;
+}
+.compendium-spells-grid {
+  margin-bottom: 0;
+}
+
+.slot-table {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+.slot-table-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+.slot-table-head {
+  color: var(--c-parchment-dim);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+}
+.slot-table-row:not(.slot-table-head):nth-child(even) {
+  background: rgba(233, 226, 207, 0.03);
+}
+.row-unlocked {
+  color: var(--c-glow);
+  background: rgba(87, 232, 209, 0.06) !important;
+}
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.feature-row {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 14px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  opacity: 0.6;
+}
+.row-unlocked.feature-row {
+  opacity: 1;
+  background: rgba(87, 232, 209, 0.05);
+}
+.feature-level {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--c-glow);
+}
+.feature-ul {
+  margin: 0;
+}
+
+.invocation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.invocation-row {
+  display: grid;
+  grid-template-columns: 180px 160px 1fr;
+  gap: 12px;
+  padding: 8px 10px;
+  font-size: 0.88rem;
+  border-radius: 4px;
+}
+.invocation-row:nth-child(odd) {
+  background: rgba(233, 226, 207, 0.03);
+}
+.invocation-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+.invocation-req {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--c-parchment-dim);
+}
+@media (max-width: 640px) {
+  .invocation-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
   }
 }
 
