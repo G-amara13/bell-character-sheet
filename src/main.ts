@@ -38,7 +38,7 @@ app.appendChild(compendioView);
 
 mountFathomGauge();
 
-mountNav((view) => {
+mountNav((view: string) => {
   schedaView.style.display = view === 'scheda' ? '' : 'none';
   compendioView.style.display = view === 'compendio' ? '' : 'none';
   const gauge = document.querySelector<HTMLElement>('.fathom-gauge');
