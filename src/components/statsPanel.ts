@@ -47,6 +47,7 @@ export function renderStatsPanel(c: Character, editMode: boolean, onEdit: () => 
       const input = document.createElement('input');
       input.type = 'number';
       input.className = 'ability-input';
+      input.dataset.abilityKey = key;
       input.value = score !== null ? String(score) : '';
       input.placeholder = '—';
       input.min = '1';
