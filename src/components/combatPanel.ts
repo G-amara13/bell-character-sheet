@@ -24,6 +24,7 @@ export function renderCombatPanel(c: Character, editMode: boolean, onEdit: () =>
       const input = document.createElement('input');
       input.type = 'number';
       input.className = 'combat-input';
+      input.dataset.combatKey = String(key);
       input.value = value !== null ? String(value) : '';
       input.placeholder = '—';
       input.addEventListener('input', () => {
