@@ -159,8 +159,8 @@ body::before {
 }
 .header-portrait-wrap {
   flex-shrink: 0;
-  width: 260px;
-  height: 260px;
+  width: 180px;
+  height: 180px;
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid rgba(87, 232, 209, 0.3);
@@ -178,8 +178,8 @@ body::before {
     gap: 20px;
   }
   .header-portrait-wrap {
-    width: 220px;
-    height: 220px;
+    width: 140px;
+    height: 140px;
   }
 }
 .eyebrow {
@@ -778,6 +778,78 @@ body::before {
     grid-template-columns: 1fr;
     gap: 2px;
   }
+}
+
+/* ============================================================
+   MODALITA' MODIFICA
+   ============================================================ */
+.edit-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 0 0 0;
+  margin-bottom: 8px;
+}
+.edit-btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(87, 232, 209, 0.35);
+  background: rgba(87, 232, 209, 0.08);
+  color: var(--c-glow);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.edit-btn:hover {
+  background: rgba(87, 232, 209, 0.16);
+}
+.edit-btn-reset {
+  border-color: rgba(192, 106, 63, 0.4);
+  background: rgba(192, 106, 63, 0.08);
+  color: var(--c-rust);
+}
+.edit-btn-reset:hover {
+  background: rgba(192, 106, 63, 0.16);
+}
+.edit-hint {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--c-parchment-dim);
+}
+
+.ability-input,
+.combat-input {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  text-align: center;
+  background: rgba(87, 232, 209, 0.08);
+  border: 1px solid rgba(87, 232, 209, 0.4);
+  border-radius: 4px;
+  color: var(--c-parchment);
+  padding: 4px 2px;
+  margin: 2px 0;
+}
+.combat-input {
+  font-size: 1.1rem;
+  text-align: left;
+  padding: 4px 8px;
+}
+.ability-input:focus,
+.combat-input:focus {
+  outline: none;
+  border-color: var(--c-glow);
+  box-shadow: 0 0 10px rgba(87, 232, 209, 0.3);
+}
+/* Rimuove le frecce dello spinner numerico per un look più pulito */
+.ability-input::-webkit-outer-spin-button,
+.ability-input::-webkit-inner-spin-button,
+.combat-input::-webkit-outer-spin-button,
+.combat-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* Focus visibile per accessibilità da tastiera */
