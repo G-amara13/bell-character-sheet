@@ -11,36 +11,63 @@ import { renderLevelLogPanel } from './components/levelLogPanel';
 import { mountFathomGauge } from './components/fathomGauge';
 import { mountNav } from './components/nav';
 import { renderCompendiumPage } from './components/compendiumPage';
+import { mountEditToggle } from './components/editToggle';
+import { applyOverrides, clearOverrides } from './storage';
 
 const app = document.getElementById('app')!;
 
 // --- Vista "Scheda" ---
 const schedaView = document.createElement('div');
 schedaView.id = 'view-scheda';
-[
-  renderHeader(character),
-  renderStatsPanel(character),
-  renderCombatPanel(character),
-  renderInventoryPanel(character),
-  renderLevelLogPanel(character),
-  renderSkillsPanel(character),
-  renderSpellsPanel(character),
-  renderPatronPanel(character),
-].forEach((s) => schedaView.appendChild(s));
+
+const schedaContent = document.createElement('div');
+schedaContent.id = 'scheda-content';
+schedaView.appendChild(schedaContent);
+
+let editMode = false;
+
+function renderScheda(): void {
+  const effectiveCharacter = applyOverrides(character);
+  schedaContent.innerHTML = '';
+  [
+    renderHeader(effectiveCharacter),
+    renderStatsPanel(effectiveCharacter, editMode, renderScheda),
+    renderCombatPanel(effectiveCharacter, editMode, renderScheda),
+    renderInventoryPanel(effectiveCharacter),
+    renderLevelLogPanel(effectiveCharacter),
+    renderSkillsPanel(effectiveCharacter),
+    renderSpellsPanel(effectiveCharacter),
+    renderPatronPanel(effectiveCharacter),
+  ].forEach((s) => schedaContent.appendChild(s));
+}
+
+renderScheda();
 
 // --- Vista "Compendio" ---
 const compendioView = document.createElement('div');
 compendioView.id = 'view-compendio';
-compendioView.appendChild(renderCompendiumPage(character));
+compendioView.appendChild(renderCompendiumPage(applyOverrides(character)));
 
 app.appendChild(schedaView);
 app.appendChild(compendioView);
 
 mountFathomGauge();
 
-mountNav((view: string) => {
+mountEditToggle(
+  (newEditMode) => {
+    editMode = newEditMode;
+    renderScheda();
+  },
+  () => {
+    clearOverrides();
+    renderScheda();
+  }
+);
+
+mountNav((view:string) => {
   schedaView.style.display = view === 'scheda' ? '' : 'none';
   compendioView.style.display = view === 'compendio' ? '' : 'none';
   const gauge = document.querySelector<HTMLElement>('.fathom-gauge');
   if (gauge) gauge.style.display = view === 'scheda' ? '' : 'none';
 });
+
