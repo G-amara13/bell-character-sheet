@@ -1,8 +1,18 @@
-import { defineConfig } from 'vite';
+/// <reference types="vite/client" />
 
-// IMPORTANTE: 'base' deve corrispondere al nome del repository GitHub.
-// Se crei il repo con un nome diverso da "bell-character-sheet",
-// cambia la riga qui sotto in '/nome-repo/'
-export default defineConfig({
-  base: '/bell-character-sheet/',
-});
+declare module '*.jpg' {
+  const src: string;
+  export default src;
+}
+declare module '*.jpeg' {
+  const src: string;
+  export default src;
+}
+declare module '*.png' {
+  const src: string;
+  export default src;
+}
+declare module '*.svg' {
+  const src: string;
+  export default src;
+}
