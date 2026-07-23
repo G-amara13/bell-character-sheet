@@ -1,14 +1,16 @@
 import type { Character } from '../data/types';
 import { el } from '../utils';
+import portraitUrl from '../assets/bell-portrait.jpg';
 
 export function renderHeader(c: Character): HTMLElement {
   const section = el('section', 'depth-zone depth-surface', '');
   section.id = 'zone-surface';
 
-  section.appendChild(
+  const headerCard = el('div', 'header-card');
+  headerCard.appendChild(
     el(
       'div',
-      'header-card',
+      'header-card-text',
       `
       <p class="eyebrow">Diario di bordo</p>
       <h1 class="char-name">${c.nome} <span class="char-nickname">"${c.soprannome}"</span></h1>
@@ -20,6 +22,10 @@ export function renderHeader(c: Character): HTMLElement {
     `
     )
   );
+  headerCard.appendChild(
+    el('div', 'header-portrait-wrap', `<img class="header-portrait" src="${portraitUrl}" alt="Ritratto di ${c.nome} '${c.soprannome}'" />`)
+  );
+  section.appendChild(headerCard);
 
   const descBlock = el('div', 'prose-card');
   descBlock.appendChild(el('h2', 'zone-title', 'Chi è Bell'));
@@ -56,3 +62,4 @@ export function renderHeader(c: Character): HTMLElement {
 
   return section;
 }
+
